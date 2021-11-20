@@ -11,8 +11,8 @@ enum VEHICLES
 	door,
 	far,
 	engine,
-	left, //ïîâîğîòíèêè
-	right, //ïîâîğîòíèêè
+	left, //Ã¯Ã®Ã¢Ã®Ã°Ã®Ã²Ã­Ã¨ÃªÃ¨
+	right, //Ã¯Ã®Ã¢Ã®Ã°Ã®Ã²Ã­Ã¨ÃªÃ¨
 	park,
 	Float:fuel,
 
@@ -27,6 +27,10 @@ public OnGameModeInit()
 {
     //init
     SetTimer("Benzin", 20000, true);
+}
+public OnPlayerDisconnect(playerid, reason)
+{
+	cef_destroy_browser(playerid, 1);
 }
 forward Benzin();
 public Benzin()
@@ -51,7 +55,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid)
 }
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-    cef_emit_event(playerid, "data:hud:stats", CEFINT(-1)); //-1 èìåííî äëÿ ñïèäîìåòğà
+    cef_emit_event(playerid, "data:hud:stats", CEFINT(-1)); //-1 Ã¨Ã¬Ã¥Ã­Ã­Ã® Ã¤Ã«Ã¿ Ã±Ã¯Ã¨Ã¤Ã®Ã¬Ã¥Ã²Ã°Ã 
 }
 //cef_emit_event(i, "data:vehicle", CEFINT(veh[i][door]), CEFINT(veh[i][far]), CEFINT(veh[i][engine]), CEFINT(veh[i][left]), CEFINT(veh[i][right]), CEFINT(veh[i][park]), CEFFLOAT(Fuels[GetPlayerVehicleID(i)]));
 
@@ -64,7 +68,7 @@ cmd:veh(playerid)
 cmd:lock(playerid, arg[])
 {
 	new vehicleid = GetPlayerVehicleID(playerid);
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/lock [value]");
     veh[playerid][door] = m;
@@ -72,7 +76,7 @@ cmd:lock(playerid, arg[])
 }
 cmd:engine(playerid, arg[])
 {
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
 new vehicleid = GetPlayerVehicleID(playerid);
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/engine [value]");
@@ -81,7 +85,7 @@ new vehicleid = GetPlayerVehicleID(playerid);
 }
 cmd:fars(playerid, arg[])
 {
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
 new vehicleid = GetPlayerVehicleID(playerid);
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/fars [value]");
@@ -90,7 +94,7 @@ new vehicleid = GetPlayerVehicleID(playerid);
 }
 cmd:lefts(playerid, arg[])
 {
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
 new vehicleid = GetPlayerVehicleID(playerid);
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/lefts [value]");
@@ -99,7 +103,7 @@ new vehicleid = GetPlayerVehicleID(playerid);
 }
 cmd:rights(playerid, arg[])
 {
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
 new vehicleid = GetPlayerVehicleID(playerid);
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/rights [value]");
@@ -108,7 +112,7 @@ new vehicleid = GetPlayerVehicleID(playerid);
 }
 cmd:parks(playerid, arg[])
 {
-//âàì íàäî çàïîìèíàòü äğóãèå ïàğàìåòğû ÷òîáû ıòî ğàáîòàëî óñïåøíî ( ëèáî ïåğåïèñàòü JS ïàä âñå äåéñòâèÿ )
+//Ğ²Ğ°Ğ¼ Ğ½Ğ°Ğ´Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ¼Ğ¸Ğ½Ğ°Ñ‚ÑŒ Ğ´Ñ€ÑƒĞ³Ğ¸Ğµ Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ ÑÑ‚Ğ¾ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ»Ğ¾ ÑƒÑĞ¿ĞµÑˆĞ½Ğ¾ ( Ğ»Ğ¸Ğ±Ğ¾ Ğ¿ĞµÑ€ĞµĞ¿Ğ¸ÑĞ°Ñ‚ÑŒ JS Ğ¿Ğ°Ğ´ Ğ²ÑĞµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ñ )
 new vehicleid = GetPlayerVehicleID(playerid);
     extract arg -> new m;else
         SendClientMessage(playerid, -1, "/parks [value]");
