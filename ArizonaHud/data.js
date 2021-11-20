@@ -1,21 +1,20 @@
-//Основной скрипт JS спидака и худа 
+//ГЋГ±Г­Г®ГўГ­Г®Г© Г±ГЄГ°ГЁГЇГІ JS Г±ГЇГЁГ¤Г ГЄГ  ГЁ ГµГіГ¤Г  
 
-client.sendEvent("game:hud:setComponentVisible", "interface", false);
-client.sendEvent("game:hud:setComponentVisible", "radar", true);
+cef.emit("game:hud:setComponentVisible", "interface", false);
+cef.emit("game:hud:setComponentVisible", "radar", true);
 
-client.sendEvent("game:data:pollPlayerStats", true, 50);
+cef.emit("game:data:pollPlayerStats", true, 50);
 
-
-client.sub("data:hud:stats", (hud) => {
+cef.on("data:hud:stats", (hud) => {
     HudVisible(hud);
 })
-client.sub("data:pool:eat", (eat) => {
+cef.on("data:pool:eat", (eat) => {
     document.getElementById('e').value = eat;
 })
-client.sub("data:pool:gps", (gps) => {
-    document.getElementById('gps-tracker').textContent = gps + "М";
+cef.on("data:pool:gps", (gps) => {
+    document.getElementById('gps-tracker').textContent = gps + "ГЊ";
 })
-client.sub("game:data:playerStats", (hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed) => { 
+cef.on("game:data:playerStats", (hp, max_hp, arm, breath, wanted, weapon, ammo, max_ammo, money, speed) => { 
 
     //weapons
     document.getElementById('ammo').src = "./img/weapons/" + weapon +".png";
@@ -29,18 +28,18 @@ client.sub("game:data:playerStats", (hp, max_hp, arm, breath, wanted, weapon, am
     //arm
     document.getElementById('a').value = arm;
 
-    //деньги
+    //Г¤ГҐГ­ГјГЈГЁ
     document.getElementById('m').textContent = money + "$";
 
     //wanted lvl
     SetWantedLevel(wanted);
 
-    //скорость 
+    //Г±ГЄГ®Г°Г®Г±ГІГј 
     SetSpeed(7, parseInt(speed,10));
 } );
 
-//это на все вместе 
-client.sub("data:vehicle", (door, far, engine, left, right, park, fuels) => {
+//ГЅГІГ® Г­Г  ГўГ±ГҐ ГўГ¬ГҐГ±ГІГҐ 
+cef.on("data:vehicle", (door, far, engine, left, right, park, fuels) => {
     SetSpeed(1, engine);
     SetSpeed(2, door);
     SetSpeed(3, far);
@@ -55,7 +54,7 @@ function SetSpeed(id, params)
     {
         case 1:
             {
-                //движок 
+                //Г¤ГўГЁГ¦Г®ГЄ 
                 if(params == 1)
                 {
                     document.getElementById('engine').src = "./img/engineon.png";
@@ -68,7 +67,7 @@ function SetSpeed(id, params)
             }
         case 2:
             {
-                //ключи
+                //ГЄГ«ГѕГ·ГЁ
                 if(params == 1)
                 {
                     document.getElementById('keys').src = "./img/keys.png";
@@ -81,7 +80,7 @@ function SetSpeed(id, params)
             }
         case 3:
             {
-                //фары
+                //ГґГ Г°Г»
                 if(params == 1)
                 {
                     document.getElementById('far').src = "./img/faro.png";
@@ -94,7 +93,7 @@ function SetSpeed(id, params)
             }
             case 4:
                 {
-                    //поворотники 1
+                    //ГЇГ®ГўГ®Г°Г®ГІГ­ГЁГЄГЁ 1
                     if(params == 1)
                     {
                         document.getElementById('right').src = "./img/righton.png";
@@ -107,7 +106,7 @@ function SetSpeed(id, params)
                 }
                 case 5:
                     {
-                        //поворотники 2
+                        //ГЇГ®ГўГ®Г°Г®ГІГ­ГЁГЄГЁ 2
                         if(params == 1)
                         {
                             document.getElementById('left').src = "./img/lefton.png";
@@ -120,7 +119,7 @@ function SetSpeed(id, params)
                     }
                     case 6:
                         {
-                            //парковка
+                            //ГЇГ Г°ГЄГ®ГўГЄГ 
                             if(params == 1)
                             {
                                 document.getElementById('park').src = "./img/park.png";
@@ -133,7 +132,7 @@ function SetSpeed(id, params)
                         }
                     case 7:
                         {
-                            //скорость 
+                            //Г±ГЄГ®Г°Г®Г±ГІГј 
                             document.getElementById('speed').textContent = params;
                             break;
                         }
@@ -141,7 +140,7 @@ function SetSpeed(id, params)
 }
 function HudVisible(visible)
 {
-    let v = visible; //делаю вот такое тут
+    let v = visible; //Г¤ГҐГ«Г Гѕ ГўГ®ГІ ГІГ ГЄГ®ГҐ ГІГіГІ
     if(v == 1)
     {
         //HUD 1
@@ -154,7 +153,7 @@ function HudVisible(visible)
     }
     if(v == 3)
     {
-        //подсказки 
+        //ГЇГ®Г¤Г±ГЄГ Г§ГЄГЁ 
         document.getElementById('help').style.display = "block";
     }
     if(v == 4)
